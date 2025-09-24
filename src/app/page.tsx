@@ -6,9 +6,11 @@ import { Hero } from "@/components/Hero";
 import { Navigation } from "@/components/Navigation";
 import { Projects } from "@/components/projects";
 import { Skills } from "@/components/skills";
+import { fetchAboutMeData } from "@/lib/aboutApi";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+    const aboutData = await fetchAboutMeData();
   return (
     <main className="min-h-screen bg-background">
       <a
@@ -19,14 +21,14 @@ export default function Home() {
       </a>
       <Navigation />
       <div id="main-content">
-        <Hero/>
-        <About/>
-        <Experience/>
-        <Projects/>
-        <Skills/>
-        <Contact/>
+        <Hero aboutData={aboutData} />
+        <About aboutData={aboutData} />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
       </div>
-      <Footer/>
+      <Footer />
     </main>
   );
 }

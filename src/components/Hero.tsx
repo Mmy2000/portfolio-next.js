@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-export function Hero() {
+export function Hero({ aboutData }: { aboutData: any }) {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [displayText, setDisplayText] = useState("");
@@ -20,9 +20,9 @@ export function Hero() {
 
   const roles = [
     "Full Stack Developer",
-    "React Specialist",
-    "Node.js Expert",
-    "UI/UX Designer",
+    "Python Specialist",
+    "Django Expert",
+    "React Developer",
   ];
 
   useEffect(() => {
@@ -223,7 +223,10 @@ export function Hero() {
                 {/* Main image container */}
                 <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl hover:scale-105 transition-transform duration-500">
                   <Image
-                    src="/professional-developer-working-on-laptop-with-mode.jpg"
+                    src={
+                      aboutData?.data?.image ||
+                      "/professional-developer-working-on-laptop-with-mode.jpg"
+                    }
                     alt="Alex Johnson - Full Stack Developer"
                     width={400}
                     height={400}
