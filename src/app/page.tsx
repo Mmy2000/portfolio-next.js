@@ -9,11 +9,13 @@ import { Skills } from "@/components/skills";
 import { fetchAboutMeData } from "@/lib/aboutApi";
 import { fetchExpData } from "@/lib/expApi";
 import { fetchProjectsData } from "@/lib/projectsApi";
+import { fetchSkillsData } from "@/lib/skillsApi";
 
 export default async function Home() {
     const aboutData = await fetchAboutMeData();
     const expData = await fetchExpData();
     const projectsData = await fetchProjectsData("per_page=3");
+    const skillsData = await fetchSkillsData();
     
   return (
     <main className="min-h-screen bg-background">
@@ -23,14 +25,14 @@ export default async function Home() {
       >
         Skip to main content
       </a>
-      <Navigation />
+      <Navigation aboutData={aboutData} />
       <div id="main-content">
         <Hero aboutData={aboutData} />
         <About aboutData={aboutData} />
-        <Experience expData = {expData} />
+        <Experience expData={expData} />
         <Projects isHomePage={true} projectsData={projectsData} />
-        <Skills />
-        <Contact />
+        <Skills skillsData={skillsData} />
+        <Contact aboutData={aboutData} />
       </div>
       <Footer />
     </main>

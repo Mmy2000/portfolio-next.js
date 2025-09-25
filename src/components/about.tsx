@@ -40,7 +40,7 @@ export function About({ aboutData }: { aboutData: any }) {
       observer.disconnect();
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, []);  
 
   return (
     <section
@@ -122,18 +122,24 @@ export function About({ aboutData }: { aboutData: any }) {
                     {
                       icon: MapPin,
                       label: "Location",
-                      value: "San Francisco, CA",
+                      value: aboutData?.data?.address,
                     },
-                    { icon: Calendar, label: "Experience", value: "8+ Years" },
+                    {
+                      icon: Calendar,
+                      label: "Experience",
+                      value: aboutData?.data?.total_experience,
+                    },
                     {
                       icon: Target,
                       label: "Focus",
-                      value: "Full-Stack Development & Accessibility",
+                      value: aboutData?.data?.headline,
                     },
                     {
                       icon: User,
                       label: "Availability",
-                      value: "Open to opportunities",
+                      value: aboutData?.data?.available_for_hire
+                        ? "Open to opportunities"
+                        : "Not looking for opportunities",
                     },
                   ].map(({ icon: Icon, label, value }, index) => (
                     <div

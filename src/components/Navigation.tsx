@@ -23,7 +23,7 @@ const navItems = [
   { name: "Contact", href: "#contact", icon: MessageSquare },
 ];
 
-export function Navigation() {
+const Navigation = ({ aboutData }: { aboutData: any }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -62,6 +62,20 @@ export function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleDownload = async () => {
+    const url = aboutData?.data?.resume;
+    if (!url) return;
+
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${aboutData?.data?.username}_resume.pdf`; // filename here
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
@@ -90,10 +104,10 @@ export function Navigation() {
               </div>
               <div className="hidden sm:block">
                 <span className="text-xl font-bold text-foreground group-hover:text-primary transition-all duration-300">
-                  Mm Yousef
+                  {aboutData?.data?.username}
                 </span>
                 <div className="text-xs text-muted-foreground font-medium">
-                  Full Stack Developer
+                  {aboutData?.data?.headline}
                 </div>
               </div>
             </a>
@@ -140,6 +154,7 @@ export function Navigation() {
             <Button
               variant="outline"
               size="sm"
+              onClick={handleDownload}
               className="ml-4 bg-transparent border-primary/30 hover:bg-primary hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 dark:hover:text-primary dark:border-primary/50"
             >
               <Download className="h-4 w-4 mr-2" />
@@ -234,4 +249,6 @@ export function Navigation() {
       </div>
     </nav>
   );
-}
+};
+
+export { Navigation };

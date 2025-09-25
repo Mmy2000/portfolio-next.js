@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone, Send, MessageCircle } from "lucide-react"
 
-export function Contact() {
+export function Contact({aboutData}: {aboutData: any}) {
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
@@ -89,7 +89,7 @@ export function Contact() {
     } finally {
       setIsSubmitting(false)
     }
-  }
+  }  
 
   return (
     <section
@@ -135,19 +135,19 @@ export function Contact() {
                 {
                   icon: Mail,
                   label: "Email",
-                  value: "alex@example.com",
+                  value: aboutData?.data?.email,
                   href: "mailto:alex@example.com",
                 },
                 {
                   icon: Phone,
                   label: "Phone",
-                  value: "+1 (234) 567-8900",
-                  href: "tel:+1234567890",
+                  value: aboutData?.data?.phone_number,
+                  href: `tel:` + aboutData?.data?.phone_number,
                 },
                 {
                   icon: MapPin,
                   label: "Location",
-                  value: "San Francisco, CA",
+                  value: aboutData?.data?.address,
                   href: null,
                 },
               ].map(({ icon: Icon, label, value, href }, index) => (
