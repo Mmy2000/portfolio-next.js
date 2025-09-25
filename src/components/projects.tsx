@@ -5,71 +5,34 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Star, Zap } from "lucide-react"
+import Link from "next/link"
+import ProjectsProps from "@/interfaces/page"
 
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    description:
-      "A comprehensive e-commerce solution built with Next.js and Stripe integration. Features include product management, user authentication, shopping cart, and payment processing.",
-    image: "/modern-ecommerce-interface-dashboard.jpg",
-    technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-  },
-  {
-    title: "Task Management App",
-    description:
-      "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/task-management-dashboard-kanban-board.jpg",
-    technologies: ["React", "Node.js", "Socket.io", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-  },
-  {
-    title: "Weather Dashboard",
-    description:
-      "A responsive weather application with location-based forecasts, interactive maps, and detailed weather analytics.",
-    image: "/weather-dashboard-interface-with-charts.jpg",
-    technologies: ["Vue.js", "Chart.js", "OpenWeather API"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
-  },
-  {
-    title: "Portfolio Website",
-    description:
-      "A modern portfolio website built with Next.js, featuring smooth animations, responsive design, and optimized performance.",
-    image: "/modern-portfolio-website.png",
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
-  },
-]
 
-export function Projects() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
+const Projects: React.FC<ProjectsProps> = ({
+  projectsData,
+  isHomePage = false,
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1 },
-    )
+      { threshold: 0.1 }
+    );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+      observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -106,7 +69,7 @@ export function Projects() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-6">
-          {projects.map((project, index) => (
+          {projectsData?.data.map((project: any, index: any) => (
             <div
               key={index}
               className={`transition-all duration-1000 ${
@@ -135,16 +98,16 @@ export function Projects() {
                 <CardContent className="">
                   <div className="flex items-start justify-between ">
                     <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                      {project.title}
+                      <Link href={`projects/${project.slug}`}>{project.title}</Link>
                     </h3>
                   </div>
 
                   <p className="text-muted-foreground mb-4 leading-relaxed text-pretty">
-                    {project.description}
+                    {project.cover_description}
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.technologies.map((tech, techIndex) => (
+                    {project?.tags.map((tech: any, techIndex: any) => (
                       <Badge
                         key={tech}
                         variant="outline"
@@ -165,7 +128,9 @@ export function Projects() {
                       className="flex-1 bg-transparent hover-glow group/btn dark:text-primary"
                     >
                       <a
-                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={project.url}
                         className="flex items-center gap-2"
                       >
                         <ExternalLink className="h-4 w-4 group-hover/btn:rotate-45 transition-transform duration-300" />
@@ -178,7 +143,9 @@ export function Projects() {
                       className="hover-glow group/btn bg-transparent"
                     >
                       <a
-                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={project.github}
                         className="flex items-center gap-2 dark:text-primary"
                       >
                         <Github className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300 " />
@@ -191,7 +158,24 @@ export function Projects() {
             </div>
           ))}
         </div>
+        {isHomePage ? (
+          <div>
+            <div className="text-center mt-6">
+              <Link href={"/projects"}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="hover-glow group/btn bg-transparent dark:hover:text-primary border-primary/40 dark:border-primary/40 w-1/2"
+                >
+                  All Projects
+                </Button>
+              </Link>
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );
-}
+};
+
+export default Projects

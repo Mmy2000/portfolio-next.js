@@ -3,16 +3,13 @@
 import { useEffect, useRef, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { User, MapPin, Calendar, Target, Coffee } from "lucide-react"
-import { fetchAboutMeData } from "@/lib/aboutApi"
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 
 export function About({ aboutData }: { aboutData: any }) {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
-
-  console.log(aboutData);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

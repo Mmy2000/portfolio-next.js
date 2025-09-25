@@ -4,13 +4,17 @@ import { Experience } from "@/components/experience";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/Hero";
 import { Navigation } from "@/components/Navigation";
-import { Projects } from "@/components/projects";
+import Projects from "@/components/projects";
 import { Skills } from "@/components/skills";
 import { fetchAboutMeData } from "@/lib/aboutApi";
-import Image from "next/image";
+import { fetchExpData } from "@/lib/expApi";
+import { fetchProjectsData } from "@/lib/projectsApi";
 
 export default async function Home() {
     const aboutData = await fetchAboutMeData();
+    const expData = await fetchExpData();
+    const projectsData = await fetchProjectsData("per_page=3");
+    
   return (
     <main className="min-h-screen bg-background">
       <a
@@ -23,8 +27,8 @@ export default async function Home() {
       <div id="main-content">
         <Hero aboutData={aboutData} />
         <About aboutData={aboutData} />
-        <Experience />
-        <Projects />
+        <Experience expData = {expData} />
+        <Projects isHomePage={true} projectsData={projectsData} />
         <Skills />
         <Contact />
       </div>

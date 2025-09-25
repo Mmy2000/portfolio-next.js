@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
+import { AppWrapper } from "@/components/app-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,7 +55,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <AppWrapper>
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          </AppWrapper>
           <Analytics />
         </ThemeProvider>
       </body>
