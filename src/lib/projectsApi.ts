@@ -6,3 +6,11 @@ export async function fetchProjectsData(params: any = {}) {
     method: "GET",
   });
 }
+
+
+export async function fetchProjectBySlug(slug: string) {
+  return await apiServiceCall({
+    url: `/projects/${slug}/`,
+    method: "GET",
+  });
+}

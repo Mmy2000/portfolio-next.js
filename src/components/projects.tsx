@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Star, Zap } from "lucide-react"
+import { ExternalLink, Eye, Github, Star, Zap } from "lucide-react"
 import Link from "next/link"
 import ProjectsProps from "@/interfaces/page"
 
@@ -87,7 +87,7 @@ const Projects: React.FC<ProjectsProps> = ({
                     alt={`${project.title} - Screenshot showing the main interface and features`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  {project.featured && (
+                  {project.is_featured && (
                     <div className="absolute top-4 right-4 bg-primary/95 backdrop-blur-sm text-black px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 shadow-lg">
                       <Star className="h-3 w-3" />
                       Featured
@@ -98,7 +98,9 @@ const Projects: React.FC<ProjectsProps> = ({
                 <CardContent className="">
                   <div className="flex items-start justify-between ">
                     <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                      <Link href={`projects/${project.slug}`}>{project.title}</Link>
+                      <Link href={`projects/${project.slug}`}>
+                        {project.title}
+                      </Link>
                     </h3>
                   </div>
 
@@ -107,25 +109,37 @@ const Projects: React.FC<ProjectsProps> = ({
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project?.tags.map((tech: any, techIndex: any) => (
+                    {project?.tags
+                      .slice(0, 4)
+                      .map((tech: any, techIndex: any) => (
+                        <Badge
+                          key={tech}
+                          variant="outline"
+                          className={`border-primary/30 text-xs hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${
+                            hoveredIndex === index
+                              ? "animate-bounce-subtle"
+                              : ""
+                          }`}
+                          style={{ animationDelay: `${techIndex * 100}ms` }}
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    {project?.tags.length > 3 && (
                       <Badge
-                        key={tech}
                         variant="outline"
-                        className={`text-xs hover:bg-primary hover:text-primary-foreground transition-all duration-300 ${
-                          hoveredIndex === index ? "animate-bounce-subtle" : ""
-                        }`}
-                        style={{ animationDelay: `${techIndex * 100}ms` }}
+                        className="text-xs border-primary/30"
                       >
-                        {tech}
+                        +{project?.tags.length - 4} more
                       </Badge>
-                    ))}
+                    )}
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-4 mb-4">
                     <Button
                       size="sm"
                       variant="outline"
-                      className="flex-1 bg-transparent hover-glow group/btn dark:text-primary"
+                      className="flex-1 bg-transparent hover-glow group/btn dark:text-primary border-primary/30 dark:border-primary/30"
                     >
                       <a
                         target="_blank"
@@ -146,13 +160,19 @@ const Projects: React.FC<ProjectsProps> = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         href={project.github}
-                        className="flex items-center gap-2 dark:text-primary"
+                        className="flex items-center gap-2 dark:text-primary "
                       >
                         <Github className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300 " />
                         Code
                       </a>
                     </Button>
                   </div>
+                  <Link href={`/projects/${project.slug}`}>
+                    <Button size="sm" className="w-full hover-glow group/btn">
+                      <Eye className="h-3 w-3 mr-2 group-hover/btn:scale-110 transition-transform duration-300" />
+                      View Details
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </div>

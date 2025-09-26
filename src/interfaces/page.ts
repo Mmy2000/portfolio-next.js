@@ -4,7 +4,17 @@ export default interface ProjectsProps {
     isHomePage?: boolean;
 }
 
+export interface ProjectProps {
+    project: any;
+}
+
 export interface HeaderProps {
     title:string;
     description:string;
+}
+
+export interface ProjectPageProps {
+  params: {
+    slug: string
+  }
 }

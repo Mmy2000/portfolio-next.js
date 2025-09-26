@@ -1,12 +1,27 @@
-import HeaderSection from '@/components/HeaderSection'
-import { fetchProjectsData } from '@/lib/projectsApi'
-import React from 'react'
 
-const page = async () => {
-    
+import HeaderSection from '@/components/HeaderSection'
+import { ProjectPageProps } from '@/interfaces/page';
+import { fetchProjectBySlug } from '@/lib/projectsApi'
+import { notFound } from "next/navigation";
+import ProjectPage from '@/components/ProjectPage';
+
+const page = async ({ params }: ProjectPageProps) => {
+  const { slug } = await params;
+  const project = await fetchProjectBySlug(slug);
+  if (!project) {
+    notFound();
+  }
+  console.log(project);
+
   return (
-   <HeaderSection title='Projects' description='last project'/>
-  )
-}
+    <>
+      <HeaderSection
+        title={project?.data?.title + " Project"}
+        description={project?.data?.cover_description}
+      />
+      <ProjectPage project={project?.data} />
+    </>
+  );
+};
 
 export default page
