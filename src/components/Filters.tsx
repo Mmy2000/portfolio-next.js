@@ -43,7 +43,7 @@ const Filters = ({
   };
 
   return (
-    <div className="mt-12 max-w-5xl mx-auto space-y-8">
+    <div className="mt-12  max-w-5xl mx-2 md:mx-auto space-y-8">
       {/* Search */}
       <div className="relative max-w-lg mx-auto">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary/50 z-10 h-4 w-4" />
