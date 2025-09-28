@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone, Send, MessageCircle } from "lucide-react"
+import apiServiceCall from "@/services/service";
 
 export function Contact({aboutData}: {aboutData: any}) {
   const [isVisible, setIsVisible] = useState(false)
@@ -22,6 +23,7 @@ export function Contact({aboutData}: {aboutData: any}) {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [successMessage, setSuccessMessage] = useState("Message sent successfully! I'll get back to you soon.")
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -66,30 +68,44 @@ export function Contact({aboutData}: {aboutData: any}) {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!validateForm()) return
+    if (!validateForm()) return;
 
-    setIsSubmitting(true)
-    setSubmitStatus("idle")
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
-      setSubmitStatus("success")
+      const res = await apiServiceCall({
+        url: "contact/create/", // ✅ make sure this matches your Django endpoint
+        method: "POST",
+        body: {
+          email: formData.email,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          subject: formData.subject,
+          message: formData.message,
+        },
+      });
+
+      setSubmitStatus("success");
       setFormData({
         firstName: "",
         lastName: "",
         email: "",
         subject: "",
         message: "",
-      })
-      setErrors({})
+      });
+      setSuccessMessage(res?.message || successMessage);
+      
+      setErrors({});
     } catch (error) {
-      setSubmitStatus("error")
+      console.error("Error submitting contact form:", error);
+      setSubmitStatus("error");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }  
+  };
 
   return (
     <section
@@ -374,7 +390,7 @@ export function Contact({aboutData}: {aboutData: any}) {
                       role="alert"
                     >
                       <p className="text-primary font-medium">
-                        Message sent successfully! I'll get back to you soon.
+                        {successMessage}
                       </p>
                     </div>
                   )}
