@@ -9,6 +9,7 @@ import { Skills } from "@/components/skills";
 import { fetchAboutMeData } from "@/lib/aboutApi";
 import { fetchExpData } from "@/lib/expApi";
 import { fetchProjectsData } from "@/lib/projectsApi";
+import { fetchSiteInfoData } from "@/lib/SiteInfo";
 import { fetchSkillsData } from "@/lib/skillsApi";
 
 export default async function Home() {
@@ -16,6 +17,8 @@ export default async function Home() {
     const expData = await fetchExpData();
     const projectsData = await fetchProjectsData("per_page=3");
     const skillsData = await fetchSkillsData();
+    const siteInfoData = await fetchSiteInfoData();
+    const roles = siteInfoData?.data?.role;    
     
   return (
     <main className="min-h-screen bg-background">
@@ -27,14 +30,14 @@ export default async function Home() {
       </a>
       <Navigation aboutData={aboutData} />
       <div id="main-content">
-        <Hero aboutData={aboutData} />
+        <Hero aboutData={aboutData} siteInfoData={siteInfoData} roles={roles} />
         <About aboutData={aboutData} />
         <Experience expData={expData} />
         <Projects isHomePage={true} projectsData={projectsData} />
         <Skills skillsData={skillsData} />
         <Contact aboutData={aboutData} />
       </div>
-      <Footer />
+      <Footer siteInfoData={siteInfoData} />
     </main>
   );
 }

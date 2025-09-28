@@ -6,24 +6,19 @@ import {
   ArrowDown,
   Github,
   Linkedin,
+  Facebook,
+  Instagram,
   Mail,
   Code,
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
 
-export function Hero({ aboutData }: { aboutData: any }) {
+export function Hero({ aboutData, siteInfoData,roles }: { aboutData: any; siteInfoData: any,roles:any }) {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [displayText, setDisplayText] = useState("");
   const [currentRole, setCurrentRole] = useState(0);
-
-  const roles = [
-    "Full Stack Developer",
-    "Python Specialist",
-    "Django Expert",
-    "React Developer",
-  ];
 
   useEffect(() => {
     setIsVisible(true);
@@ -33,7 +28,7 @@ export function Hero({ aboutData }: { aboutData: any }) {
     let isDeleting = false;
 
     const typewriterEffect = () => {
-      const currentText = roles[roleIndex];
+      const currentText = roles[roleIndex].name; // 🔥 FIX: use .name
 
       if (!isDeleting) {
         setDisplayText(currentText.slice(0, charIndex + 1));
@@ -67,7 +62,7 @@ export function Hero({ aboutData }: { aboutData: any }) {
       window.removeEventListener("mousemove", handleMouseMove);
       clearInterval(typingInterval);
     };
-  }, []);
+  }, [roles]); // 🔥 add roles as dependency
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 relative overflow-hidden">
@@ -107,15 +102,21 @@ export function Hero({ aboutData }: { aboutData: any }) {
                 <div className="flex items-center space-x-2 bg-primary/10 backdrop-blur-sm px-6 py-3 rounded-full border border-primary/20">
                   <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                   <span className="text-primary font-medium tracking-wide text-sm">
-                    Available for work
+                    {aboutData?.data?.available_for_hire
+                      ? " Available for Work"
+                      : "Not Available for Hire"}
                   </span>
                   <Sparkles className="h-4 w-4 text-primary animate-pulse-slow" />
                 </div>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 text-balance">
-                <span className="inline-block ">Mahmoud</span>{" "}
-                <span className="inline-block text-primary  ">Yousef</span>
+                <span className="inline-block ">
+                  {siteInfoData?.data?.f_name}
+                </span>{" "}
+                <span className="inline-block text-primary  ">
+                  {siteInfoData?.data?.l_name}
+                </span>
               </h1>
 
               <div className="flex items-center justify-center lg:justify-start mb-12">
@@ -139,9 +140,7 @@ export function Hero({ aboutData }: { aboutData: any }) {
               }`}
             >
               <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto lg:mx-0 text-pretty leading-relaxed">
-                I build accessible, pixel-perfect digital experiences that blend
-                thoughtful design with robust engineering. My favorite work lies
-                at the intersection of design and development.
+                {siteInfoData?.data?.description}
               </p>
             </div>
 
@@ -175,17 +174,31 @@ export function Hero({ aboutData }: { aboutData: any }) {
                 </Button>
               </div>
 
-              <div className="flex justify-center lg:justify-start space-x-6">
+              <div className="flex justify-center lg:justify-start space-x-6 pb-2">
                 {[
-                  { icon: Github, href: "https://github.com", label: "GitHub" },
+                  {
+                    icon: Github,
+                    href: siteInfoData?.data?.githup_link,
+                    label: "GitHub",
+                  },
                   {
                     icon: Linkedin,
-                    href: "https://linkedin.com",
+                    href: siteInfoData?.data?.linkedin_link,
                     label: "LinkedIn",
                   },
                   {
+                    icon: Facebook,
+                    href: siteInfoData?.data?.fb_link,
+                    label: "Facebook",
+                  },
+                  {
+                    icon: Instagram,
+                    href: siteInfoData?.data?.instagram_link,
+                    label: "Instagram",
+                  },
+                  {
                     icon: Mail,
-                    href: "mailto:alex@example.com",
+                    href: `mailto:${siteInfoData?.data?.email}`,
                     label: "Email",
                   },
                 ].map(({ icon: Icon, href, label }, index) => (

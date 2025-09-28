@@ -112,7 +112,7 @@ export function Skills({ skillsData }: { skillsData: any }) {
                               <Badge
                                 key={badgeKey}
                                 variant="secondary"
-                                className={`transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105 ${
+                                className={`transition-all border-primary/30 duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105 ${
                                   hoveredCategory === categoryIndex
                                     ? "animate-pulse-slow"
                                     : ""
