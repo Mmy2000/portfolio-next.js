@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ExternalLink, Eye, Github, Star, Zap } from "lucide-react"
-import Link from "next/link"
-import ProjectsProps from "@/interfaces/page"
+import { useEffect, useRef, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Eye, Github, Star, Zap } from "lucide-react";
+import Link from "next/link";
+import ProjectsProps from "@/interfaces/page";
 
-
-const Projects: React.FC<ProjectsProps> = ({
+const Blogs: React.FC<ProjectsProps> = ({
   projectsData,
   isHomePage = false,
 }) => {
@@ -36,7 +35,7 @@ const Projects: React.FC<ProjectsProps> = ({
 
   return (
     <section
-      id="projects"
+      id="blogs"
       ref={sectionRef}
       className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-background/50"
     >
@@ -53,18 +52,18 @@ const Projects: React.FC<ProjectsProps> = ({
                 <div className="flex items-center gap-3 bg-primary/10 backdrop-blur-sm px-6 py-3 rounded-full border border-primary/20">
                   <Zap className="h-5 w-5 text-primary animate-pulse-slow" />
                   <h2 className="text-sm font-semibold text-primary uppercase tracking-wider">
-                    Featured Projects
+                    Featured Blogs
                   </h2>
                 </div>
                 <div className="h-px bg-gradient-to-r from-transparent via-primary to-transparent w-24"></div>
               </div>
               <h3 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
-                Things I've <span className="text-primary">Built</span>
+                Insights & <span className="text-primary">Stories</span>
               </h3>
               <p className="text-muted-foreground text-lg max-w-3xl mx-auto text-pretty leading-relaxed">
-                A collection of projects that showcase my technical skills,
-                creative problem-solving abilities, and passion for building
-                exceptional digital experiences.
+                Explore a collection of articles covering development tips,
+                coding best practices, and personal experiences from my journey
+                as a developer.
               </p>
             </div>
           </div>
@@ -137,38 +136,6 @@ const Projects: React.FC<ProjectsProps> = ({
                     )}
                   </div>
 
-                  <div className="flex gap-4 mb-4">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="flex-1 bg-transparent hover-glow group/btn dark:text-primary border-primary/30 dark:border-primary/30"
-                    >
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={project.url}
-                        className="flex items-center gap-2"
-                      >
-                        <ExternalLink className="h-4 w-4 group-hover/btn:rotate-45 transition-transform duration-300" />
-                        Live Demo
-                      </a>
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="hover-glow group/btn bg-transparent"
-                    >
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={project.github}
-                        className="flex items-center gap-2 dark:text-primary "
-                      >
-                        <Github className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300 " />
-                        Code
-                      </a>
-                    </Button>
-                  </div>
                   <Link href={`/projects/${project.slug}`}>
                     <Button size="sm" className="w-full hover-glow group/btn">
                       <Eye className="h-3 w-3 mr-2 group-hover/btn:scale-110 transition-transform duration-300" />
@@ -183,14 +150,14 @@ const Projects: React.FC<ProjectsProps> = ({
         {isHomePage ? (
           <div>
             <div className="text-center mt-6">
-              <Link href={"/projects"}>
+              <Link href={"/blogs"}>
                 <Button
                   size="lg"
                   variant="outline"
                   className="hover-glow group/btn bg-transparent dark:hover:text-primary border-primary/40 dark:border-primary/40 w-1/2"
                 >
                   <Eye className="h-3 w-3 mr- group-hover/btn:scale-110 transition-transform duration-300" />
-                  All Projects
+                  All Blogs
                 </Button>
               </Link>
             </div>
@@ -201,4 +168,4 @@ const Projects: React.FC<ProjectsProps> = ({
   );
 };
 
-export default Projects
+export default Blogs;

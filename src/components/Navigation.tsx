@@ -11,6 +11,7 @@ import {
   Code2,
   MessageSquare,
   Download,
+  Book
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -19,6 +20,7 @@ const navItems = [
   { name: "About", href: "#about", icon: User },
   { name: "Experience", href: "#experience", icon: Briefcase },
   { name: "Projects", href: "#projects", icon: Code2 },
+  { name: "Blogs", href: "#blogs", icon: Book },
   { name: "Skills", href: "#skills", icon: Code2 },
   { name: "Contact", href: "#contact", icon: MessageSquare },
 ];

@@ -1,4 +1,5 @@
 import { About } from "@/components/about";
+import Blogs from "@/components/blogs";
 import { Contact } from "@/components/contact";
 import { Experience } from "@/components/experience";
 import { Footer } from "@/components/footer";
@@ -34,6 +35,7 @@ export default async function Home() {
         <About aboutData={aboutData} />
         <Experience expData={expData} />
         <Projects isHomePage={true} projectsData={projectsData} />
+        <Blogs isHomePage={true} projectsData={projectsData} />
         <Skills skillsData={skillsData} />
         <Contact aboutData={aboutData} />
       </div>
