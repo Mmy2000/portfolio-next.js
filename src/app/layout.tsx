@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Johnson - Full Stack Developer",
+  title: "Mahmoud Yousef - Full Stack Developer",
   description:
     "Professional portfolio showcasing modern web development expertise, innovative projects, and technical leadership.",
   generator: "v0.app",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     "TypeScript",
     "Web Development",
   ],
-  authors: [{ name: "Alex Johnson" }],
+  authors: [{ name: "Mahmoud Yousef" }],
   openGraph: {
-    title: "Alex Johnson - Full Stack Developer",
+    title: "Mahmoud Yousef - Full Stack Developer",
     description:
       "Professional portfolio showcasing modern web development expertise",
     type: "website",
