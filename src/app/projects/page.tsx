@@ -32,6 +32,7 @@ const Page = () => {
         description="A comprehensive collection of my work, showcasing various technologies and problem-solving approaches across different domains."
       />
       <Filters
+      pageType="project"
         filters={projectsData?.filters}
         onFilterApply={handleFilterApply}
       />

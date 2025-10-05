@@ -8,6 +8,7 @@ import { Navigation } from "@/components/Navigation";
 import Projects from "@/components/projects";
 import { Skills } from "@/components/skills";
 import { fetchAboutMeData } from "@/lib/aboutApi";
+import { fetchBlogsData } from "@/lib/blogsApi";
 import { fetchExpData } from "@/lib/expApi";
 import { fetchProjectsData } from "@/lib/projectsApi";
 import { fetchSiteInfoData } from "@/lib/SiteInfo";
@@ -20,6 +21,7 @@ export default async function Home() {
     const skillsData = await fetchSkillsData();
     const siteInfoData = await fetchSiteInfoData();
     const roles = siteInfoData?.data?.role;    
+    const blogsData = await fetchBlogsData("per_page=3");    
     
   return (
     <main className="min-h-screen bg-background">
@@ -35,7 +37,7 @@ export default async function Home() {
         <About aboutData={aboutData} />
         <Experience expData={expData} />
         <Projects isHomePage={true} projectsData={projectsData} />
-        <Blogs isHomePage={true} projectsData={projectsData} />
+        <Blogs isHomePage={true} blogsData={blogsData} />
         <Skills skillsData={skillsData} />
         <Contact aboutData={aboutData} />
       </div>

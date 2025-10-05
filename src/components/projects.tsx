@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Eye, Github, Star, Zap } from "lucide-react"
 import Link from "next/link"
-import ProjectsProps from "@/interfaces/page"
+import {ProjectsProps} from "@/interfaces/page"
 
 
 const Projects: React.FC<ProjectsProps> = ({

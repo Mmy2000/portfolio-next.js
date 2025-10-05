@@ -8,9 +8,11 @@ import { Search, Filter, Calendar, X } from "lucide-react";
 const Filters = ({
   filters,
   onFilterApply,
+  pageType,
 }: {
   filters: any;
   onFilterApply: (params: string) => void;
+  pageType:string
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -27,7 +29,7 @@ const Filters = ({
     if (sortBy === "title") params.append("ordering", "title");
 
     onFilterApply(params.toString());
-  }, [searchTerm, selectedCategory, selectedTag, sortBy, onFilterApply]);
+  }, [searchTerm, selectedCategory, selectedTag, sortBy]);
 
   const hasActiveFilters =
     searchTerm ||
@@ -99,7 +101,7 @@ const Filters = ({
                 onClick={() =>
                   setSelectedTag(selectedTag === tag.name ? null : tag.name)
                 }
-                className={`cursor-pointer px-3 py-1 rounded-full border duration-300 dark:border-primary/30 dark:hover:border-primary text-white  transition-colors ${
+                className={`cursor-pointer px-3 py-1 rounded-full border duration-300 dark:border-primary/30 dark:hover:border-primary dark:text-white  transition-colors ${
                   selectedTag === tag.name
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-background hover:bg-muted/60 border-border"
@@ -115,7 +117,7 @@ const Filters = ({
         {/* Sort */}
         <div className="p-5 rounded-xl border border-primary/50 bg-card shadow-sm">
           <h2 className="text-sm font-semibold mb-4 text-muted-foreground">
-            Sort Projects
+            Sort {pageType === "project" ? "Projects" : "Blogs"}
           </h2>
           <div className="flex gap-2">
             <Button

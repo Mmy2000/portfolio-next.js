@@ -11,7 +11,6 @@ const page = async ({ params }: ProjectPageProps) => {
   if (!project) {
     notFound();
   }
-  console.log(project);
 
   return (
     <>

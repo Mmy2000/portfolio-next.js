@@ -6,12 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Eye, Github, Star, Zap } from "lucide-react";
 import Link from "next/link";
-import ProjectsProps from "@/interfaces/page";
+import {BlogsProps} from "@/interfaces/page";
 
-const Blogs: React.FC<ProjectsProps> = ({
-  projectsData,
-  isHomePage = false,
-}) => {
+const Blogs: React.FC<BlogsProps> = ({ blogsData, isHomePage = false }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -70,7 +67,7 @@ const Blogs: React.FC<ProjectsProps> = ({
         ) : null}
 
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-6">
-          {projectsData?.data.map((project: any, index: any) => (
+          {blogsData?.data.map((blog: any, index: any) => (
             <div
               key={index}
               className={`transition-all duration-1000 ${
@@ -84,11 +81,11 @@ const Blogs: React.FC<ProjectsProps> = ({
               <Card className="group h-full hover-lift border-primary/30 transition-all duration-700 overflow-hidden bg-card/80 backdrop-blur-sm hover:shadow-2xl hover:shadow-primary/10">
                 <div className="aspect-video overflow-hidden relative">
                   <img
-                    src={project.image || "/placeholder.svg"}
-                    alt={`${project.title} - Screenshot showing the main interface and features`}
+                    src={blog.image || "/placeholder.svg"}
+                    alt={`${blog.title} - Screenshot showing the main interface and features`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  {project.is_featured && (
+                  {blog.is_featured && (
                     <div className="absolute top-4 right-4 bg-primary/95 backdrop-blur-sm text-black px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 shadow-lg">
                       <Star className="h-3 w-3" />
                       Featured
@@ -99,18 +96,18 @@ const Blogs: React.FC<ProjectsProps> = ({
                 <CardContent className="">
                   <div className="flex items-start justify-between ">
                     <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                      <Link href={`projects/${project.slug}`}>
-                        {project.title}
+                      <Link href={`blogs/${blog.slug}`}>
+                        {blog.title}
                       </Link>
                     </h3>
                   </div>
 
                   <p className="text-muted-foreground mb-4 leading-relaxed text-pretty">
-                    {project.cover_description}
+                    {blog.cover_description}
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project?.tags
+                    {blog?.tags
                       .slice(0, 4)
                       .map((tech: any, techIndex: any) => (
                         <Badge
@@ -126,17 +123,17 @@ const Blogs: React.FC<ProjectsProps> = ({
                           {tech}
                         </Badge>
                       ))}
-                    {project?.tags.length > 3 && (
+                    {blog?.tags.length > 3 && (
                       <Badge
                         variant="outline"
                         className="text-xs border-primary/30"
                       >
-                        +{project?.tags.length - 4} more
+                        +{blog?.tags.length - 4} more
                       </Badge>
                     )}
                   </div>
 
-                  <Link href={`/projects/${project.slug}`}>
+                  <Link href={`/blogs/${blog.slug}`}>
                     <Button size="sm" className="w-full hover-glow group/btn">
                       <Eye className="h-3 w-3 mr-2 group-hover/btn:scale-110 transition-transform duration-300" />
                       View Details
