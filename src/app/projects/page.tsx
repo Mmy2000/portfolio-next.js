@@ -2,6 +2,7 @@
 
 import Filters from "@/components/Filters";
 import HeaderSection from "@/components/HeaderSection";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import Projects from "@/components/projects";
 import { fetchProjectsData } from "@/lib/projectsApi";
 import React, { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ const Page = () => {
     setProjectsData(data);
   };
 
-  if (!projectsData) return <p>Loading...</p>;
+  if (!projectsData) return <p><LoadingSpinner/></p>;
 
   return (
     <>

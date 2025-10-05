@@ -2,6 +2,7 @@
 import Blogs from '@/components/blogs';
 import Filters from '@/components/Filters';
 import HeaderSection from '@/components/HeaderSection';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { fetchBlogsData } from '@/lib/blogsApi';
 import React, { useEffect, useState } from 'react'
 
@@ -22,7 +23,7 @@ const Page = () => {
         setBlogsData(data);
       };      
     
-      if (!blogsData) return <p>Loading...</p>;
+      if (!blogsData) return <p><LoadingSpinner/></p>;
   return (
     <>
       <HeaderSection
