@@ -5,7 +5,7 @@ import HeaderSection from '@/components/HeaderSection';
 import { fetchBlogsData } from '@/lib/blogsApi';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const Page = () => {
     const [blogsData, setBlogsData] = useState<any>(null);
     
       useEffect(() => {
@@ -35,4 +35,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Page
