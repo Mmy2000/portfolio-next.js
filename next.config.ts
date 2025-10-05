@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         port: "8000",
         pathname: "/media/**",
       },
+       {
+        protocol: "https",
+        hostname: "eshoppers.pythonanywhere.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

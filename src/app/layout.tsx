@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import { AppWrapper } from "@/components/app-wrapper";
+import CustomCursor from "@/components/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +57,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppWrapper>
-            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CustomCursor />
+              {children}
+            </Suspense>
           </AppWrapper>
           <Analytics />
         </ThemeProvider>
